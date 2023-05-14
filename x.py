@@ -58,6 +58,20 @@ def participacion_por_distrito(df,distrito):
     total_dist=sum(dist_num)
     return total_dist
 
+def votos_urna_por_distrito(df,distrito):
+    dist=df.loc[df['DISTRITO_LOCAL']==distrito]
+    dist=dist["TOTAL_VOTOS_SACADOS"]
+    dist=dist.tolist()
+    dist_num=[]
+    for i in dist:
+        try:
+            dist_num.append(int(i))
+        except:
+            pass
+
+    total_dist=sum(dist_num)
+    return total_dist
+
 #______________Limpieza del archivo base_______________________________
 datos=pd.read_csv('QRO_DIP_LOC_2018.csv', skiprows=5)
 columna_clave_acta= datos['CLAVE_ACTA']
@@ -177,18 +191,43 @@ df=pd.read_csv('QRO_DIP_LOC_2018.csv', skiprows=5)
 # plt.show()
 
 #_____Analisis de entidad federativa con mayor participación ciudadana - 09______
-distritos_distintos=df["DISTRITO_LOCAL"].unique().tolist()
+# distritos_distintos=df["DISTRITO_LOCAL"].unique().tolist()
 
-total_participacion=[]
-for i in distritos_distintos:
-    total_participacion.append(participacion_por_distrito(df,i))
+# total_participacion=[]
+# for i in distritos_distintos:
+#     total_participacion.append(participacion_por_distrito(df,i))
 
-plt.rc('font', size=10)
-plt.rc('axes', titlesize=20)
-plt.rc('ytick', labelsize=10)
-plt.rc('xtick', labelsize= 3.9)
-plt.title('Participacion ciudadana en cada distrito')
-plt.xlabel('Distrito')
-plt.ylabel('Total participantes')
-plt.bar(distritos_distintos,total_participacion)
-plt.show()
+# plt.rc('font', size=10)
+# plt.rc('axes', titlesize=20)
+# plt.rc('ytick', labelsize=10)
+# plt.rc('xtick', labelsize= 3.9)
+# plt.title('Participacion ciudadana en cada distrito')
+# plt.xlabel('Distrito')
+# plt.ylabel('Total participantes')
+# plt.bar(distritos_distintos,total_participacion)
+# plt.show()
+
+#_____Excedentes de votos sacados de la urna en relacion con los votantes contabilizados - 10______
+# distritos_distintos=df["DISTRITO_LOCAL"].unique().tolist()
+
+# total_participacion=[]
+# for i in distritos_distintos:
+#     total_participacion.append(participacion_por_distrito(df,i))
+    
+# total_votos_sacados_urna=[]
+# for j in distritos_distintos:
+#     total_votos_sacados_urna.append(votos_urna_por_distrito(df,j))
+
+# excedente_votos=[]
+# for s in range(len(total_participacion)):
+#     excedente_votos.append(abs(total_votos_sacados_urna[s]-total_participacion[s]))
+
+# plt.rc('font', size=10)
+# plt.rc('axes', titlesize=16)
+# plt.rc('ytick', labelsize=10)
+# plt.rc('xtick', labelsize= 3.9)
+# plt.title('Excedente de votos sacados de la urna con respecto a los votantes contabilizados en cada distrito')
+# plt.xlabel('Distrito')
+# plt.ylabel('Votos de más')
+# plt.bar(distritos_distintos,excedente_votos)
+# plt.show()
